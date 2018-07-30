@@ -1,0 +1,43 @@
+<#include "../common/_layout.html"/>
+<@layout>
+<h1>当前使用规则版本&nbsp;&nbsp;
+</h1>
+<div class="table_box">
+	<table class="list">
+		<tbody>
+			<tr>
+				<th width="15%">规则ID</th>
+				<th width="25%">规则版本</th>
+				<th width="25%">规则参数</th>
+				<th width="25%">上传时间</th>
+			</tr>
+			
+			<#list filterPage.getList() as x>
+			<tr>
+				<td style="text-align:left;">${x.filterId}</td>
+				<td style="text-align:left;">${x.version}</td>
+				<td style="text-align:left;">${x.expires}</td>
+				<td class="timeUpdated" style="text-align:left;">${x.timeUpdated}</td>
+			</tr>
+			</#list>
+		</tbody>
+	</table>
+	<#include "/common/_paginate.html" />
+	<@paginate currentPage=filterPage.pageNumber totalPage=filterPage.totalPage actionUrl="" />
+</div>
+</@layout>
+<script type="text/javascript" >
+
+/* $(function () {
+	var timestamp = $(".timeUpdated").html().substring(0,10);
+	var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
+	var date = (d.getFullYear()) + "-" + 
+	           (d.getMonth() + 1) + "-" +
+	           (d.getDate()) + " " + 
+	           (d.getHours()) + ":" + 
+	           (d.getMinutes()) + ":" + 
+	           (d.getSeconds());
+	$(".timeUpdated").html(date);;
+});
+ */
+</script>

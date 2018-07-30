@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML 
+xmlns="http://www.w3.org/1999/xhtml"><HEAD><META content="IE=11.0000" 
+http-equiv="X-UA-Compatible">
+ 
+<META http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<TITLE>登录页面</TITLE> 
+<script src="../js/jquery-1.4.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="login.css"/>  
+
+<link rel="shortcut icon" href="favicon.ico" />
+<script type="text/javascript">
+$(function(){
+	//得到焦点
+	$("#password").focus(function(){
+		$("#left_hand").animate({
+			left: "150",
+			top: " -38"
+		},{step: function(){
+			if(parseInt($("#left_hand").css("left"))>140){
+				$("#left_hand").attr("class","left_hand");
+			}
+		}}, 2000);
+		$("#right_hand").animate({
+			right: "-64",
+			top: "-38px"
+		},{step: function(){
+			if(parseInt($("#right_hand").css("right"))> -70){
+				$("#right_hand").attr("class","right_hand");
+			}
+		}}, 2000);
+	});
+	//失去焦点
+	$("#password").blur(function(){
+		$("#left_hand").attr("class","initial_left_hand");
+		$("#left_hand").attr("style","left:100px;top:-12px;");
+		$("#right_hand").attr("class","initial_right_hand");
+		$("#right_hand").attr("style","right:-112px;top:-12px");
+	});
+});
+
+	$(function() {
+		$("#login_btn").removeAttr("disabled");
+		/**
+		 *1、input绑定回车
+		 */
+		$("#login_form input").bind("keyup", function(e) {
+			var ev = document.all ? window.event : e;
+			if (ev.keyCode == 13) {//如果是回车，那么提交表单
+				submitForm();
+			}
+		});
+	});
+
+	/**
+	 提交表单
+	 */
+	function submitForm() {
+		//清空所有错误提示
+		$(".msg").html("");
+		$("#login_btn").attr("disabled","disabled");
+		$.post("login", $("#login_form").serialize(), function(data) {
+			$("#login_btn").removeAttr("disabled");
+			var responseM = data;
+			if(responseM.state=='error'){//登陆不成功，显示所有的错误提示
+				for(var key in responseM){
+					if(key!='error')
+					//$("#"+key).html(responseM[key]);
+					$(".msg").html(responseM[key]);
+				}
+			}else{//登陆成功，跳转页面
+			location = "../filter/";
+			}
+		}, "json");
+	} 
+</script>
+
+<body>
+<!--这里说明下，form表单中，input 的name要和后面错误提示的id想对应，这样程序写起来会更方便 -->
+<!--  <div id="login">
+ <h1>Login</h1>  
+	<form id="login_form" method="post" action="login">
+		<input name='username' required="required" placeholder="用户名"/><span class='msg' id="usernameMsg"></span><br> <br> 
+		<input name='password' type="password" required="required" placeholder="密码"/><span class='msg' id="passwordMsg"></span> <br> <br>
+		验证：<input name="imgcode" /><span class='msg' id='imgcodeMsg'></span><br> <br> 
+		<img src="imgcode" onclick="this.src='imgcode?'+Math.random()" /> 
+		<input id="login_btn" class="btn" onclick="submitForm()" type="button" value="登陆">
+	</form>
+</div> -->
+
+<DIV class="top_div"></DIV>
+<DIV style="background: rgb(255, 255, 255); margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; height: 200px; text-align: center;">
+<DIV style="width: 165px; height: 96px; position: absolute;">
+	<DIV class="tou"></DIV>
+	<DIV class="initial_left_hand" id="left_hand"></DIV>
+	<DIV class="initial_right_hand" id="right_hand"></DIV>
+</DIV>
+<form id="login_form" method="post" action="login">
+<P style="padding: 30px 0px 10px; position: relative;">
+<SPAN class="u_logo"></SPAN> 
+<INPUT class="ipt" name='username' required="required" type="text" placeholder="请输入用户名或邮箱" value=""> 
+    </P>
+<P style="position: relative;">
+<SPAN class="p_logo"></SPAN>         
+<INPUT class="ipt" id="password" name='password' type="password" required="required" placeholder="请输入密码" value="">   
+  </P>
+  <P style="position: relative;">
+	<span class='msg'></span>        
+  </P>
+<DIV style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
+<P style="margin: 0px 35px 20px 45px;">
+<SPAN style="float: left;">
+<label><input id="IsAutoLogin" type="checkbox" checked="checked" class="lgpt-c" name="remUser">下次自动登录</label>
+</SPAN> 
+ <SPAN style="float: right;"><A style="color: rgb(204, 204, 204); margin-right: 10px;" 
+ href="#">注册</A>  
+ <A style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;" 
+ href="javascript:void(0);" onclick="submitForm()">登录</A> 
+           </SPAN>         
+           </P></DIV>
+        </form>   
+           </DIV>
+
+</body>
+</html>

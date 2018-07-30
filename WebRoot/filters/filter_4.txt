@@ -1,0 +1,7 @@
+! Title: Social media filter
+! Version: 1.0.12.24
+! Name: Social media filter
+! Description: Filter for social media widgets (Like buttons and such).
+! NameEn: Social media filter
+! DescriptionEn: Filter for social media widgets (Like buttons and such).
+! TimeUpdated: 2016-09-01T00:00:55.572+04:00

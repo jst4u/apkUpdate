@@ -1,0 +1,24 @@
+<fieldset class="solid">
+	<legend>上传规则</legend>
+	<input type="hidden" name="blog.id" value="${(blog.id)!}" />
+	<div>
+		<label>规则文件</label>
+		<input type="file" name="file" />${fileMsg!}
+	</div>
+	<div>
+		<label>规则ID</label>
+		<input type="text" name="blog.filterId" value="${(blog.filterId)!}" />${filterIdMsg!}
+	</div>
+	<div>
+		<label>版本号</label>
+		<input type="text" name="blog.version" value="${(blog.version)!}" />${versionMsg!}
+	</div>
+	<div>
+		<label>规则说明</label>
+		<textarea name="blog.content" cols="80" rows="10">${(blog.content)!}</textarea>${contentMsg!}
+	</div>
+	<div>
+		<label>&nbsp;</label>
+		<input value="提交" type="submit">
+	</div>
+</fieldset>
